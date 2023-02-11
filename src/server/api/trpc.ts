@@ -42,6 +42,8 @@ const createInnerTRPCContext = (opts: CreateContextOptions) => {
   };
 };
 
+export type Context = ReturnType<typeof createInnerTRPCContext>;
+
 /**
  * This is the actual context you will use in your router. It will be used to
  * process every request that goes through your tRPC endpoint.
@@ -124,3 +126,4 @@ const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
  * @see https://trpc.io/docs/procedures
  */
 export const protectedProcedure = t.procedure.use(enforceUserIsAuthed);
+
