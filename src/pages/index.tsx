@@ -2,13 +2,49 @@ import { type NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
+import { useRef, useState } from "react";
 
-import { api } from "../utils/api";
 
 import { Form } from "../components/forms";
 
 
+function guard(file: FileList | null): file is FileList {
+  return file !== null;
+}
+
 const Home: NextPage = () => {
+
+  const [fileList, setFileList] = useState<FileList | null>(null);
+
+  const handleFileUpload = () => {
+
+    if (guard(fileList)) {
+      const file = fileList[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        const result = reader.result;
+        if (typeof result === "string") {
+          const base64 = result.split(",")[1];
+          if (base64) {
+            fetch("http://localhost:3000/api/uploadImage", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({image: base64}),
+            }).then((res) => {
+              return res.json();
+            }).then((json) => {
+              console.log(json);
+            })
+          }
+        }
+      };
+    }
+
+  }
 
   return (
     <>
@@ -18,7 +54,8 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
-        
+        <input onChange={(e) => setFileList(e.target.files)} type="file" />
+        <button onClick={handleFileUpload}> Upload </button>
       </main>
     </>
   );

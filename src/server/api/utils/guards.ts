@@ -77,3 +77,14 @@ export const isAuthorOfReview = async (ctx: Context, input: ValidatedHasReviewId
     }
     return res;
 }
+
+export const isOwnerOfAccount = async (ctx: Context, input: { userId: string }) => {
+    const res = ctx.session?.user?.id === input.userId;
+    if (!res) {
+        throw new TRPCError({
+            code: "UNAUTHORIZED",
+            message: "Not authorized to perform this action",
+        });
+    }
+    return res;
+}
