@@ -1,5 +1,5 @@
 import React from "react";
-import { useComponentVisible } from "./hooks";
+import { useComponentVisible } from "./utils/hooks";
 
 
 interface Props {

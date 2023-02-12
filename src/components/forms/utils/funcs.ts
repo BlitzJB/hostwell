@@ -2,6 +2,7 @@ import { env } from "../../../env.mjs"
 
 
 export interface ImgurResponse {
+    /* Requires Imgur Setup */
     data: {
         id: string
         title: string
@@ -37,6 +38,7 @@ export interface ImgurResponse {
 }
 
 export async function uploadImage(image: string) {
+    /* Requires Imgur Setup */
     const headers = new Headers()
     headers.append("Authorization", `Client-ID ${env.IMGUR_CLIENT_ID}`)
 
