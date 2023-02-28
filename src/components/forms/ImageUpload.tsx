@@ -95,3 +95,5 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({ setUrl, onTooLarge, la
         </div>
     </>)
 }
+
+export default ImageUpload;

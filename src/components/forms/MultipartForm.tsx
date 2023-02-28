@@ -2,7 +2,7 @@ import React, { useCallback, useEffect } from "react";
 
 
 interface Props {
-    children: React.ReactNode[];
+    children: React.ReactNode[] | React.ReactNode;
     currentStep: number;
     formData: any;
     validateBeforeSubmit?: (data: any) => boolean;
@@ -16,7 +16,9 @@ const Form: React.FC<Props> = ({ children, currentStep, formData, validateBefore
         onSubmit(formData);
     }
 
-    if (currentStep > children.length) {
+    const length = React.Children.count(children);
+
+    if (currentStep > length) {
         handleFormSubmit();
     }
     

@@ -3,6 +3,7 @@ import { TRPCError } from "@trpc/server";
 
 import { createTRPCRouter, publicProcedure, protectedProcedure } from "../trpc";
 import { isCreatorOfEvent } from "../utils/guards";
+import { isUint16Array } from "util/types";
 
 
 export const eventRouter = createTRPCRouter({

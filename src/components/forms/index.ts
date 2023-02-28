@@ -8,6 +8,7 @@ import TextAreaField from "./TextAreaField";
 import TextField from "./TextField";
 import Form from "./MultipartForm";
 import FormStep from "./FormStep";
+import ImageUpload from "./ImageUpload";
 
 export {
     GroupCheck,
@@ -19,5 +20,6 @@ export {
     TextAreaField,
     TextField,
     Form,
-    FormStep
+    FormStep,
+    ImageUpload
 };

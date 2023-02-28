@@ -13,7 +13,7 @@ export const accountRouter = createTRPCRouter({
             })
         )
         .query(async ({ ctx, input }) => {
-            const account = await ctx.prisma.account.findUnique({
+            const account = await ctx.prisma.user.findUnique({
                 where: {
                     id: input.accountId,
                 },
@@ -28,18 +28,18 @@ export const accountRouter = createTRPCRouter({
         }),
     me: protectedProcedure
         .query(async ({ ctx }) => {
-            const account = await ctx.prisma.account.findUnique({
+            const user = await ctx.prisma.user.findUnique({
                 where: {
                     id: ctx.session.user.id,
                 },
             })
-            if (!account) {
+            if (!user) {
                 throw new TRPCError({
                     code: 'NOT_FOUND',
-                    message: 'Account not found',
+                    message: 'user not found',
                 })
             }
-            return account
+            return user
         }),
     updateMe: protectedProcedure
         .input(
@@ -60,7 +60,7 @@ export const accountRouter = createTRPCRouter({
             if (input.avatar) {
                 update['avatar'] = input.avatar
             }
-            const account = await ctx.prisma.account.update({
+            const account = await ctx.prisma.user.update({
                 where: {
                     id: ctx.session.user.id,
                 },
